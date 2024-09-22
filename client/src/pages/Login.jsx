@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object().shape({
   email: yup.string().email('Email invalide').required('Email est requis'),
-  password: yup.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères').required('Mot de passe est requis'),
+  password: yup.string().required('Mot de passe requis'),
 });
 
 function Login() {

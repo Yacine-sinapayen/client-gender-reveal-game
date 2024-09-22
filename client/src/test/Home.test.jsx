@@ -11,6 +11,7 @@ describe('Home', () => {
       </BrowserRouter>
     );
     
-    screen.debug(); // prints out the jsx in the App component unto the command line
+    // prints out the jsx in the App component unto the command line
+    //screen.debug(); 
   });
 });

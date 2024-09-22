@@ -1,7 +1,17 @@
-import { describe, it, expect } from 'vitest'
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import Register from '../pages/Register'; // Assurez-vous que le chemin est correct
 
-describe('A truthy statement', () => {
-  it('should be equal to 2', () => {
-    expect(1+1).toEqual(2)
-  })
-})
+describe('Register', () => {
+  it('renders the Register component', () => {
+    render(
+      <BrowserRouter>
+        <Register />
+      </BrowserRouter>
+    );
+    
+    // prints out the jsx in the App component unto the command line
+    //screen.debug();  
+  });
+});
