@@ -31,7 +31,7 @@ function Login() {
         dispatch(loginSuccess({ user: response.data.user, token: response.data.token }));
         toast.success('Connexion réussie');
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate('/');
         }, 2000); 
       }
     } catch (error) {
