@@ -8,7 +8,8 @@ import { FaApple, FaGoogle } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../store/slice/authSlice';
 
 const schema = yup.object().shape({
   email: yup.string().email('Email invalide').required('Email est requis'),
@@ -16,20 +17,21 @@ const schema = yup.object().shape({
 });
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const navigate = useNavigate();
-
 
   const onSubmit = async (data) => {
     try {
       const response = await axios.post('http://localhost:5555/auth/login', data);
       if (response.status === 200 || response.status === 201) {
+        dispatch(loginSuccess({ user: response.data.user, token: response.data.token }));
         toast.success('Connexion réussie');
         setTimeout(() => {
-          navigate('/home');
+          navigate('/dashboard');
         }, 2000); 
       }
     } catch (error) {
@@ -48,14 +50,14 @@ function Login() {
       transition: { 
         duration: 0.6, 
         ease: "easeOut",
-        delay: i * 0.2 // Delay each element by 0.2s
+        delay: i * 0.2
       }
     })
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg mx-5">
         <motion.h1 
           className="text-4xl font-bold mb-8 text-center text-gray-900"
           initial="hidden"

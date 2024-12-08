@@ -1,16 +1,20 @@
-import { Route, Routes } from 'react-router-dom';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Home from './pages/Home';
+import { Route, Routes } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 function App() {
-     return (
+  return (
+    <Provider store={store}>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/register" element={<Register />} />
       </Routes>
-     );
-   }
+    </Provider>
+  );
+}
 
 export default App;
