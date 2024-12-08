@@ -5,7 +5,7 @@ import { GamepadIcon, Trophy } from 'lucide-react';
 //import { Button } from '../components/ui/Button';
 
 const Dashboard = () => {
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth);
   console.log(user);
   return (
     <div className="max-w-7xl mx-auto">

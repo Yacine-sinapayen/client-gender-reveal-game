@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Layout from "./components/Layout";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
@@ -10,8 +11,10 @@ function App() {
     <Provider store={store}>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
       </Routes>
     </Provider>
   );

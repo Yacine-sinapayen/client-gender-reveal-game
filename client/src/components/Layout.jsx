@@ -1,13 +1,12 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const Layout = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-blue-500 text-white p-4">
-        <h1>GenderRevealGame</h1>
-      </header>
-      <main className="flex-grow p-4">
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <main className="container mx-auto px-4 py-8">
         <Outlet />
       </main>
     </div>

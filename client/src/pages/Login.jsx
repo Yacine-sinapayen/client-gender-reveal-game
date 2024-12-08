@@ -9,7 +9,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../store/slice/authSlice';
+import { loginSuccess } from '../store/slices/authSlice';
 
 const schema = yup.object().shape({
   email: yup.string().email('Email invalide').required('Email est requis'),
