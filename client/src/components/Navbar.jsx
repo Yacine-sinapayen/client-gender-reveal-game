@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Trophy, GamepadIcon, LayoutDashboard, LogOut } from 'lucide-react';
 import { logout } from '../store/slices/authSlice';
-//import { Button } from './ui/Button';
+import { Button } from '../components/ui/Button';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Navbar = () => {
             <Link to="/" className="text-xl font-bold text-blue-600">
               GenderRevealGames
             </Link>
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-4 bg-green-500">
               <Link
                 to="/"
                 className="flex items-center space-x-1 text-gray-700 hover:text-blue-600"
@@ -47,23 +47,23 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
+
           <div className="flex items-center space-x-4">
             {user && (
-              <>
-                <span className="text-gray-700">
-                  Welcome, {user.username}
-                </span>
-                {/* <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleLogout}
-                  className="flex items-center space-x-1"
-                >
-                  <LogOut size={16} />
-                  <span>Logout</span>
-                </Button> */}
-              </>
-            )}
+                <>
+                  <span className="text-gray-700">
+                    Salut {user.username}
+                  </span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleLogout}
+                    className="flex items-center space-x-1"
+                  >
+                    <LogOut size={16} />
+                  </Button>
+                </>
+              )}
           </div>
         </div>
       </div>

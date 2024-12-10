@@ -22,11 +22,6 @@ app.use(cors({
 // Routes auth
 app.use("/auth", authRoutes);
 
-// app.get("/", (req, response) => {
-//   console.log(req);
-//   return response.status(234).send("Hello route get");
-// });
-
 mongoose
   .connect(MONGODB_URL)
   .then(() => {
