@@ -16,11 +16,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
-            <Link to="/" className="text-xl font-bold text-blue-600">
+            <Link to="/" className="text-xl font-bold">
               GenderRevealGames
             </Link>
             <div className="hidden md:flex items-center space-x-4 bg-green-500">
@@ -51,9 +51,6 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             {user && (
                 <>
-                  <span className="text-gray-700">
-                    Salut {user.username}
-                  </span>
                   <Button
                     variant="outline"
                     size="sm"
