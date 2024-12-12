@@ -56,7 +56,7 @@ function Register() {
   const inputClasses =
     "w-full px-3 py-2 mb-4 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition-all duration-300 hover:border-blue-300 hover:scale-[1.02]";
   const buttonClasses =
-    "w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition-all duration-300";
+    "bg-top-gray-brown-dark w-full py-2 px-4 text-white font-semibold rounded-md hover:bg-blue-600 transition-all duration-300";
 
   const titleVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -72,8 +72,8 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+    <div className="flex items-center justify-center">
+      <div className="p-3 bg-top-gray-brown-light rounded-lg shadow-lg">
         <motion.h1
           className="text-4xl font-bold mb-8 text-center text-gray-900"
           initial="hidden"
@@ -161,7 +161,7 @@ function Register() {
             variants={titleVariants}
             custom={5}
           >
-            <label className="flex items-center">
+            <label className="flex items-center mb-4">
               <input
                 type="checkbox"
                 checked={showPassword}
@@ -183,30 +183,10 @@ function Register() {
             </button>
           </motion.div>
         </form>
-        <div className="mt-6">
-          <p className="text-center text-gray-600 mb-4">
-            Ou inscrivez-vous avec
-          </p>
-          <div className="flex justify-center space-x-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-2 bg-gray-200 rounded-full hover:bg-blue-100 transition-colors duration-300"
-            >
-              <FaApple className="text-gray-800 text-xl" />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-2 bg-gray-200 rounded-full hover:bg-blue-100 transition-colors duration-300"
-            >
-              <FaGoogle className="text-gray-800 text-xl" />
-            </motion.button>
-          </div>
-        </div>
+        
         <p className="mt-8 text-center text-gray-600">
           Vous avez déjà un compte ?{" "}
-          <a href="/" className="text-blue-500 font-semibold hover:underline">
+          <a href="/" className="text-font-dark font-semibold hover:underline">
             Se connecter
           </a>
         </p>
