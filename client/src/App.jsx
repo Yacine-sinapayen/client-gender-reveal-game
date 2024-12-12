@@ -12,9 +12,9 @@ function App() {
     <Provider store={store}>
       <div className="bg-top-gray-brown min-h-screen">
         <Routes>
+          <Route element={<Layout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route element={<Layout />}>
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Dashboard />} />
               {/* <Route path="/games" element={<Games />} /> */}

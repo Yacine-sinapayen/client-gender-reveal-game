@@ -40,7 +40,7 @@ function Login() {
   };
 
   const inputClasses = "w-full px-3 py-2 mb-4 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition-all duration-300 hover:border-blue-300 hover:scale-[1.02]";
-  const buttonClasses = "w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition-all duration-300";
+  const buttonClasses = "bg-top-gray-brown-dark w-full py-2 px-4 text-white font-semibold rounded-md hover:bg-blue-600 transition-all duration-300";
 
   const titleVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -55,9 +55,31 @@ function Login() {
     })
   };
 
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      x: 100  // Commence 100px vers la droite
+    },
+    visible: { 
+      opacity: 1, 
+      x: 0,    // Revient à sa position normale
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 100,
+        duration: 0.6
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg mx-5">
+    <div className="min-h-screen flex items-center justify-center">
+      <motion.div 
+        className="w-full max-w-md p-8 bg-top-gray-brown-light rounded-lg shadow-lg mx-5"
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+      >
         <motion.h1 
           className="text-4xl font-bold mb-8 text-center text-gray-900"
           initial="hidden"
@@ -115,9 +137,9 @@ function Login() {
           </div>
         </div>
         <p className="mt-8 text-center text-gray-600">
-          Vous n'avez pas de compte ? <a href="/register" className="text-blue-500 font-semibold hover:underline">Inscrivez-vous</a>
+          Vous n'avez pas de compte ? <a href="/register" className="text-font-dark font-semibold hover:underline">Inscrivez-vous</a>
         </p>
-      </div>
+      </motion.div>
       <ToastContainer />
     </div>
   );
