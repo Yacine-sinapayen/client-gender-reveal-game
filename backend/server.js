@@ -1,4 +1,5 @@
 import authRoutes from "./routes/auth.js";
+import gameQuizItemsBabyRoutes from "./routes/gameQuizItemsBaby.js";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -19,8 +20,9 @@ app.use(cors({
   origin: 'http://localhost:5173' // Autoriser cette origine spécifique
 }));
 
-// Routes auth
+// Routes
 app.use("/auth", authRoutes);
+app.use("/game-quiz-items-baby", gameQuizItemsBabyRoutes);
 
 mongoose
   .connect(MONGODB_URL)

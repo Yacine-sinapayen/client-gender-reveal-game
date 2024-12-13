@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Games from "./pages/Games";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Provider } from "react-redux";
@@ -17,7 +18,7 @@ function App() {
           <Route path="/register" element={<Register />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Dashboard />} />
-              {/* <Route path="/games" element={<Games />} /> */}
+              <Route path="/games" element={<Games />} />
               {/* <Route path="/leaderboard" element={<Leaderboard />} /> */}
             </Route>
           </Route>
