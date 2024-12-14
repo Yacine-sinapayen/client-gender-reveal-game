@@ -46,7 +46,6 @@ const ModalItemsQuizBaby = ({ isOpen, onClose, user }) => {
         "http://localhost:5555/game-quiz-items-baby/submit",
         data
       );
-      toast.success("Réponses soumises avec succès");
       onClose();
     } catch (error) {
       console.error("Error submitting responses:", error);

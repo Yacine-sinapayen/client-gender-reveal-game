@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 function Leaderboard() {
   const [scores, setScores] = useState([]);
   const [otherData, setOtherData] = useState([]);
+  const [babyFoodScores, setBabyFoodScores] = useState([]);
   const [combinedScores, setCombinedScores] = useState([]);
 
   useEffect(() => {
@@ -14,6 +15,23 @@ function Leaderboard() {
         }
         const data = await response.json();
         setScores(data);
+      } catch (error) {
+        console.error('Error fetching scores:', error);
+      }
+    }
+
+    fetchScores();
+  }, []);
+
+  useEffect(() => {
+    async function fetchScores() {
+      try {
+        const response = await fetch('http://localhost:5555/baby-food-game/ranked-scores');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setBabyFoodScores(data);
       } catch (error) {
         console.error('Error fetching scores:', error);
       }
@@ -41,7 +59,7 @@ function Leaderboard() {
 
   useEffect(() => {
     // Combine scores from both datasets
-    const combined = [...scores, ...otherData].reduce((acc, curr) => {
+    const combined = [...scores, ...otherData, ...babyFoodScores].reduce((acc, curr) => {
       const existingUser = acc.find(user => user.username === curr.username);
       if (existingUser) {
         existingUser.score += curr.score;
@@ -52,14 +70,14 @@ function Leaderboard() {
     }, []);
 
     setCombinedScores(combined);
-  }, [scores, otherData]);
+  }, [scores, otherData, babyFoodScores]);
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Qui est le meilleur ?</h1>
       
       <h2 className="text-xl font-semibold mb-2">Quiz</h2>
-      <table className="min-w-full bg-white border border-gray-200">
+      <table className="min-w-full bg-top-gray-brown-light border border-gray-200">
         <thead>
           <tr>
             <th className="py-2 px-4 border-b">Classement</th>
@@ -79,7 +97,7 @@ function Leaderboard() {
       </table>
 
       <h2 className="text-xl font-semibold mt-6 mb-2">Diaper Change</h2>
-      <table className="min-w-full bg-white border border-gray-200">
+      <table className="min-w-full bg-top-gray-brown-light border border-gray-200">
         <thead>
           <tr>
             <th className="py-2 px-4 border-b">Classement</th>
@@ -98,8 +116,28 @@ function Leaderboard() {
         </tbody>
       </table>
 
+      <h2 className="text-xl font-semibold mt-6 mb-2">Baby Food</h2>
+      <table className="min-w-full bg-top-gray-brown-light border border-gray-200">
+        <thead>
+          <tr>
+            <th className="py-2 px-4 border-b">Classement</th>
+            <th className="py-2 px-4 border-b">Nom d'utilisateur</th>
+            <th className="py-2 px-4 border-b">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {babyFoodScores.map((babyFoodScores, index) => (
+            <tr key={index} className="hover:bg-gray-100">
+              <td className="py-2 px-4 border-b">{index + 1}</td>
+              <td className="py-2 px-4 border-b">{babyFoodScores.username}</td>
+              <td className="py-2 px-4 border-b">{babyFoodScores.score}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
       <h2 className="text-xl font-semibold mt-6 mb-2">Classement Général</h2>
-      <table className="min-w-full bg-white border border-gray-200">
+      <table className="min-w-full bg-top-gray-brown-light border border-gray-200">
         <thead>
           <tr>
             <th className="py-2 px-4 border-b">Classement</th>

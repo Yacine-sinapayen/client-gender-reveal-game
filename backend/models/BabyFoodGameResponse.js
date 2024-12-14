@@ -10,7 +10,6 @@ const babyFoodGameResponseSchema = new mongoose.Schema({
         {
             potId: Number,
             selectedItems: [String],
-            correctItems: [String],
         }
     ],
     date: {

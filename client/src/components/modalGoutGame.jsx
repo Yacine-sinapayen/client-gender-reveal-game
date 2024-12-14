@@ -42,7 +42,6 @@ function ModalGoutGame({ isOpen, onClose, user }) {
                 "http://localhost:5555/baby-food-game/submit",
                 { userId: user._id, potResponses }
             );
-            toast.success("Réponses soumises avec succès!");
             onClose();
         } catch (error) {
             console.error("Error submitting responses:", error);

@@ -44,6 +44,15 @@ router.get("/get-all-responses", async (req, res) => {
   }
 });
 
+// DELETE all responses for baby food game
+router.delete("/delete-all-responses", async (req, res) => {
+  try {
+    await BabyFoodGameResponse.deleteMany({});
+    res.status(200).send("All responses deleted");
+  } catch (error) {
+    res.status(500).send("Error deleting responses");
+  }
+});
 
 const allFlavors = [
   "Banane",
@@ -60,61 +69,54 @@ router.get("/get-all-flavors", (req, res) => {
   res.json(allFlavors);
 });
 
-// GET ranked scores and assign points based on ranking
+// Function to calculate score based on correct answers
+function calculateScore(selectedItems, correctFlavors) {
+  const correctCount = selectedItems.filter(item => correctFlavors.includes(item)).length;
+  switch (correctCount) {
+    case 1:
+      return 1;
+    case 2:
+      return 3;
+    case 3:
+      return 5;
+    case 4:
+      return 6;
+    default:
+      return 0;
+  }
+}
+
+// GET user scores for baby food game
 router.get("/ranked-scores", async (req, res) => {
   try {
-    const allResponses = await BabyFoodGameResponse.find();
-    const userScores = {};
-
-    // Calculate total score for each user
-    allResponses.forEach((response) => {
-      const score = calculateScore(response.potResponses); // Assume this function calculates the score
-      if (!userScores[response.userId]) {
-        userScores[response.userId] = 0;
-      }
-      userScores[response.userId] += score;
-    });
-
-    const userIds = Object.keys(userScores);
-    const users = await User.find({ _id: { $in: userIds } });
-
-    // Sort users by score in descending order
-    const sortedScores = users
-      .map((user) => ({
-        userId: user._id,
-        username: user.username,
-        score: userScores[user._id] || 0,
-      }))
-      .sort((a, b) => b.score - a.score);
-
-    // Assign ranking points
-    const rankedScores = sortedScores.map((user, index) => ({
-      ...user,
-      rankingPoints: sortedScores.length - index, // Assign points based on ranking
-    }));
-
-    res.json(rankedScores);
-  } catch (error) {
-    res.status(500).send("Error retrieving ranked scores");
-  }
-});
-
-// Function to calculate score based on potResponses
-function calculateScore(potResponses) {
-  let score = 0;
-
-  potResponses.forEach((response) => {
-    const pot = potsFlavors.find(p => p.potId === response.potId);
-    if (pot) {
-      response.flavors.forEach((flavor) => {
-        if (pot.correctFlavors.includes(flavor)) {
-          score += 1; // Increment score for each correct flavor
+    const responses = await BabyFoodGameResponse.find();
+    const scores = await Promise.all(responses.map(async response => {
+      let totalScore = 0;
+      response.potResponses.forEach(potResponse => {
+        const pot = potsFlavors.find(p => p.potId === potResponse.potId);
+        if (pot) {
+          totalScore += calculateScore(potResponse.selectedItems, pot.correctFlavors);
         }
       });
-    }
-  });
 
-  return score;
-}
+      // Fetch the username from the User model
+      const user = await User.findById(response.userId);
+      const username = user ? user.username : "Unknown";
+
+      // Calculate ranking points (example logic)
+      const rankingPoints = totalScore * 10; // Adjust this logic as needed
+
+      return {
+        userId: response.userId,
+        username: username,
+        score: totalScore,
+        rankingPoints: rankingPoints
+      };
+    }));
+    res.json(scores);
+  } catch (error) {
+    res.status(500).send("Error calculating scores");
+  }
+});
 
 export default router;
