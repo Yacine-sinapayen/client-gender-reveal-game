@@ -21,8 +21,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
             <Link to="/" className="text-xl font-bold">
-              GenderRevealGames
+              Acceuil
             </Link>
+            {user && (
+              <h2 className="text-xl font-bold">Hello {user?.username ?? "La team"}</h2>
+            )}
             <div className="hidden md:flex items-center space-x-4 bg-green-500">
               <Link
                 to="/"

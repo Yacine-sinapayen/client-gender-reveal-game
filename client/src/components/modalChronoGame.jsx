@@ -45,6 +45,7 @@ function ModalChronoGame({ isOpen, onClose, user }) {
       });
 
       onClose();
+      toast.success('Temps soumis avec succès');
     } catch (error) {
       console.error('Erreur:', error);
       toast.error('Erreur lors de la soumission du temps');

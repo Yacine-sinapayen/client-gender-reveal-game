@@ -2,6 +2,7 @@ import authRoutes from "./routes/auth.js";
 import gameQuizItemsBabyRoutes from "./routes/gameQuizItemsBaby.js";
 import diaperChangeGameRoutes from "./routes/diaperChangeGame.js"; // Import the new route
 import babyFoodGameRoutes from "./routes/babyFoodGame.js"; // Import the new route
+import genderGuessGameRoutes from "./routes/genderGuessGame.js"; // Import the new route
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -26,6 +27,7 @@ app.use("/auth", authRoutes);
 app.use("/game-quiz-items-baby", gameQuizItemsBabyRoutes);
 app.use("/diaper-change-game", diaperChangeGameRoutes); // Add the new route
 app.use("/baby-food-game", babyFoodGameRoutes); // Add the new route
+app.use("/gender-guess-game", genderGuessGameRoutes); // Add the new route
 
 mongoose
   .connect(MONGODB_URL)

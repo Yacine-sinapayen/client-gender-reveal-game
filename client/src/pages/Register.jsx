@@ -72,126 +72,145 @@ function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="p-3 bg-top-gray-brown-light rounded-lg shadow-lg">
-        <motion.h1
-          className="text-4xl font-bold mb-8 text-center text-gray-900"
-          initial="hidden"
-          animate="visible"
-          variants={titleVariants}
-          custom={0}
-        >
-          GenderRevealGame
-        </motion.h1>
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-            custom={1}
-          >
-            <input
-              type="text"
-              placeholder="Nom d'utilisateur"
-              {...register("username")}
-              className={inputClasses}
-            />
-            {errors.username && (
-              <p className="text-red-500 text-sm">{errors.username.message}</p>
-            )}
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-            custom={2}
-          >
-            <input
-              type="email"
-              placeholder="Email"
-              {...register("email")}
-              className={inputClasses}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
-            )}
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-            custom={3}
-          >
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Mot de passe"
-              {...register("password")}
-              className={inputClasses}
-            />
-            {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password.message}</p>
-            )}
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-            custom={4}
-          >
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Confirmez le mot de passe"
-              {...register("confirmPassword")}
-              className={inputClasses}
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500 text-sm">
-                {errors.confirmPassword.message}
-              </p>
-            )}
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-            custom={5}
-          >
-            <label className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                checked={showPassword}
-                onChange={() => setShowPassword(!showPassword)} // Bascule l'état
-                className="mr-2"
-              />
-              Afficher le mot de passe
-            </label>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-            custom={6}
-          >
-            <button type="submit" className={buttonClasses}>
-              S'inscrire
-            </button>
-          </motion.div>
-        </form>
-        
-        <p className="mt-8 text-center text-gray-600">
-          Vous avez déjà un compte ?{" "}
-          <a href="/" className="text-font-dark font-semibold hover:underline">
-            Se connecter
-          </a>
-        </p>
+    <div className="flex flex-col">
+      <div className="flex justify-center items-center">
+        <motion.img
+          className="w-1/2 mb-2"
+          src="/src/assets/freindly.png"
+          alt="Teddy Bear"
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        />
       </div>
-      <ToastContainer />
+      <div className="flex items-center justify-center w-full">
+        <div className="p-3 bg-top-gray-brown-light rounded-lg shadow-lg">
+          <motion.h1
+            className="text-4xl font-bold mb-8 text-center text-gray-900"
+            initial="hidden"
+            animate="visible"
+            variants={titleVariants}
+            custom={0}
+          >
+            Baby Sinaps
+          </motion.h1>
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={titleVariants}
+              custom={1}
+            >
+              <input
+                type="text"
+                placeholder="Nom d'utilisateur"
+                {...register("username")}
+                className={inputClasses}
+              />
+              {errors.username && (
+                <p className="text-red-500 text-sm">
+                  {errors.username.message}
+                </p>
+              )}
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={titleVariants}
+              custom={2}
+            >
+              <input
+                type="email"
+                placeholder="Email"
+                {...register("email")}
+                className={inputClasses}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={titleVariants}
+              custom={3}
+            >
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Mot de passe"
+                {...register("password")}
+                className={inputClasses}
+              />
+              {errors.password && (
+                <p className="text-red-500 text-sm">
+                  {errors.password.message}
+                </p>
+              )}
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={titleVariants}
+              custom={4}
+            >
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Confirmez le mot de passe"
+                {...register("confirmPassword")}
+                className={inputClasses}
+              />
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-sm">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={titleVariants}
+              custom={5}
+            >
+              <label className="flex items-center mb-4">
+                <input
+                  type="checkbox"
+                  checked={showPassword}
+                  onChange={() => setShowPassword(!showPassword)} // Bascule l'état
+                  className="mr-2"
+                />
+                Afficher le mot de passe
+              </label>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={titleVariants}
+              custom={6}
+            >
+              <button type="submit" className={buttonClasses}>
+                S'inscrire
+              </button>
+            </motion.div>
+          </form>
+
+          <p className="mt-8 text-center text-gray-600">
+            Vous avez déjà un compte ?{" "}
+            <a
+              href="/"
+              className="text-font-dark font-semibold hover:underline"
+            >
+              Se connecter
+            </a>
+          </p>
+        </div>
+        <ToastContainer />
+      </div>
     </div>
   );
 }

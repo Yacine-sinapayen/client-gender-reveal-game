@@ -181,6 +181,7 @@ router.get("/items-quiz-baby", (req, res) => {
     name: itemId
       .replace(/_/g, " ")
       .replace(/^\w/, (c) => c.toUpperCase()), 
+     urlImg : itemId + ".png", 
   }));
 
   res.json(priceArray);

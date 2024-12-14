@@ -4,6 +4,9 @@ import Button from "../components/ui/Button";
 import ModalChronoGame from "../components/modalChronoGame";
 import ModalItemsQuizBaby from "../components/modalItemsQuizBaby";
 import ModalGoutGame from "../components/modalGoutGame";
+import { motion } from "framer-motion";
+import { ToastContainer } from "react-toastify";
+
 const Games = () => {
   const user = useSelector((state) => state.auth.user);
   // A terme les jeux seront dynamiques et alimenter par le back. l'organisateur de la genderReveal sera en charge de les ajouter. pourra créer ces propre jeu et quiz.
@@ -37,11 +40,25 @@ const Games = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
+      <div className="flex justify-center items-center">
+        <motion.img 
+            className="w-1/3" 
+            src="/src/assets/teddy-cash.png" 
+            alt="Teddy Bear"
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {games.map((game) => (
-          <div
+        {games.map((game, index) => (
+          <motion.div
             key={game.id}
             className="bg-top-gray-brown-light rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow"
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.2 }}
+            custom={index}
           >
             <h2 className="text-xl font-semibold text-gray-900">
               {game.title}
@@ -50,7 +67,7 @@ const Games = () => {
             <Button onClick={() => handlePlayClick(game.id)}>
               {game.buttonName ?? "Jouer"}
             </Button>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -77,6 +94,7 @@ const Games = () => {
           user={user}
         />
       )}
+      <ToastContainer />
     </div>
   );
 };
