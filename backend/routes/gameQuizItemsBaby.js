@@ -115,6 +115,47 @@ router.get("/has-already-responded/:userId", async (req, res) => {
   }
 });
 
+// GET ranked scores and assign points based on ranking
+router.get("/ranked-scores", async (req, res) => {
+  try {
+    const allResponses = await GameResponse.find();
+    const userScores = {};
+
+    // Calculate total score for each user
+    allResponses.forEach((response) => {
+      const difference = Math.abs(response.userPrice - response.actualPrice);
+      const score = 100 - difference;
+
+      if (!userScores[response.userId]) {
+        userScores[response.userId] = 0;
+      }
+      userScores[response.userId] += score;
+    });
+
+    const userIds = Object.keys(userScores);
+    const users = await User.find({ _id: { $in: userIds } });
+
+    // Sort users by score in descending order
+    const sortedScores = users
+      .map((user) => ({
+        userId: user._id,
+        username: user.username,
+        score: userScores[user._id] || 0,
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    // Assign ranking points
+    const rankedScores = sortedScores.map((user, index) => ({
+      ...user,
+      rankingPoints: sortedScores.length - index, // Assign points based on ranking
+    }));
+
+    res.json(rankedScores);
+  } catch (error) {
+    res.status(500).send("Error retrieving ranked scores");
+  }
+});
+
 const prices = {
   poussette: 300,
   chaise_haute: 100,

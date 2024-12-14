@@ -60,5 +60,61 @@ router.get("/get-all-flavors", (req, res) => {
   res.json(allFlavors);
 });
 
+// GET ranked scores and assign points based on ranking
+router.get("/ranked-scores", async (req, res) => {
+  try {
+    const allResponses = await BabyFoodGameResponse.find();
+    const userScores = {};
+
+    // Calculate total score for each user
+    allResponses.forEach((response) => {
+      const score = calculateScore(response.potResponses); // Assume this function calculates the score
+      if (!userScores[response.userId]) {
+        userScores[response.userId] = 0;
+      }
+      userScores[response.userId] += score;
+    });
+
+    const userIds = Object.keys(userScores);
+    const users = await User.find({ _id: { $in: userIds } });
+
+    // Sort users by score in descending order
+    const sortedScores = users
+      .map((user) => ({
+        userId: user._id,
+        username: user.username,
+        score: userScores[user._id] || 0,
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    // Assign ranking points
+    const rankedScores = sortedScores.map((user, index) => ({
+      ...user,
+      rankingPoints: sortedScores.length - index, // Assign points based on ranking
+    }));
+
+    res.json(rankedScores);
+  } catch (error) {
+    res.status(500).send("Error retrieving ranked scores");
+  }
+});
+
+// Function to calculate score based on potResponses
+function calculateScore(potResponses) {
+  let score = 0;
+
+  potResponses.forEach((response) => {
+    const pot = potsFlavors.find(p => p.potId === response.potId);
+    if (pot) {
+      response.flavors.forEach((flavor) => {
+        if (pot.correctFlavors.includes(flavor)) {
+          score += 1; // Increment score for each correct flavor
+        }
+      });
+    }
+  });
+
+  return score;
+}
 
 export default router;

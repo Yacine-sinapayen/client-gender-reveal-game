@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Games from "./pages/Games";
 import Layout from "./components/Layout";
+import Leaderboard from "./pages/LeaderBoard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -19,7 +20,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/games" element={<Games />} />
-              {/* <Route path="/leaderboard" element={<Leaderboard />} /> */}
+              <Route path="/leaderboard" element={<Leaderboard />} />
             </Route>
           </Route>
         </Routes>

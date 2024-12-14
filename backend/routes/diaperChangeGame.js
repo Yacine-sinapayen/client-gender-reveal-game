@@ -44,4 +44,43 @@ router.get("/diaper-game-get-all-users-times", async (req, res) => {
   }
 });
 
+// GET ranked scores and assign points based on ranking
+router.get("/ranked-scores", async (req, res) => {
+  try {
+    const allResponses = await DiaperChangeResponse.find();
+    const userScores = {};
+
+    // Calculate total score for each user
+    allResponses.forEach((response) => {
+      const score = response.timeTaken; // Assuming lower time is better
+      if (!userScores[response.userId]) {
+        userScores[response.userId] = 0;
+      }
+      userScores[response.userId] += score;
+    });
+
+    const userIds = Object.keys(userScores);
+    const users = await User.find({ _id: { $in: userIds } });
+
+    // Sort users by score in ascending order (lower time is better)
+    const sortedScores = users
+      .map((user) => ({
+        userId: user._id,
+        username: user.username,
+        score: userScores[user._id] || 0,
+      }))
+      .sort((a, b) => a.score - b.score);
+
+    // Assign ranking points
+    const rankedScores = sortedScores.map((user, index) => ({
+      ...user,
+      rankingPoints: sortedScores.length - index, // Assign points based on ranking
+    }));
+
+    res.json(rankedScores);
+  } catch (error) {
+    res.status(500).send("Error retrieving ranked scores");
+  }
+});
+
 export default router;
