@@ -18,6 +18,7 @@ router.post("/submit", async (req, res) => {
       userPrice: response.userPrice,
       actualPrice: getActualPrice(response.itemName), // Assume this function returns the actual price
     }));
+    console.log("gameResponses", gameResponses);
 
     await GameResponse.insertMany(gameResponses);
     res.status(201).send("Responses submitted");
@@ -42,7 +43,7 @@ router.get("/get-score/:userId", async (req, res) => {
     }, 0);
     console.log("score", score);
 
-    res.json({ score});
+    res.json({ score });
   } catch (error) {
     res.status(500).send("Error calculating score");
   }
@@ -63,8 +64,8 @@ router.delete("/delete-responses/:userId", async (req, res) => {
   }
 });
 
-// GET all scores
-router.get("/get-all-scores", async (req, res) => {
+// GET all users scores
+router.get("/get-all-users-scores-quiz-baby", async (req, res) => {
   try {
     const allResponses = await GameResponse.find();
     const userScores = {};
@@ -82,13 +83,15 @@ router.get("/get-all-scores", async (req, res) => {
     const userIds = Object.keys(userScores);
     const users = await User.find({ _id: { $in: userIds } });
 
-    const sortedScores = users.map(user => {
-      return {
-        userId: user._id,
-        username: user.username, // Assurez-vous que le modèle User a un champ 'username'
-        score: userScores[user._id] || 0
-      };
-    }).sort((a, b) => b.score - a.score);
+    const sortedScores = users
+      .map((user) => {
+        return {
+          userId: user._id,
+          username: user.username, // Assurez-vous que le modèle User a un champ 'username'
+          score: userScores[user._id] || 0,
+        };
+      })
+      .sort((a, b) => b.score - a.score);
 
     res.json(sortedScores);
   } catch (error) {
@@ -131,10 +134,16 @@ const prices = {
 };
 
 // GET prices
-  router.get("/items-quiz", (req, res) => {
-    res.json(Object.keys(prices));
-  });
+router.get("/items-quiz-baby", (req, res) => {
+  const priceArray = Object.keys(prices).map((itemId) => ({
+    id: itemId,
+    name: itemId
+      .replace(/_/g, " ")
+      .replace(/^\w/, (c) => c.toUpperCase()), 
+  }));
 
+  res.json(priceArray);
+});
 
 function getActualPrice(itemName) {
   // This function should return the actual price of the item

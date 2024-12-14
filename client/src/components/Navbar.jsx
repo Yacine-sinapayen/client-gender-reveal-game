@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Trophy, GamepadIcon, LayoutDashboard, LogOut } from 'lucide-react';
 import { logout } from '../store/slices/authSlice';
-import { Button } from '../components/ui/Button';
+import Button from './ui/Button';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -52,10 +52,7 @@ const Navbar = () => {
             {user && (
                 <>
                   <Button
-                    variant="outline"
-                    size="sm"
                     onClick={handleLogout}
-                    className="flex items-center space-x-1"
                   >
                     <LogOut size={16} />
                   </Button>

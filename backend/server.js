@@ -1,10 +1,11 @@
 import authRoutes from "./routes/auth.js";
 import gameQuizItemsBabyRoutes from "./routes/gameQuizItemsBaby.js";
+import diaperChangeGameRoutes from "./routes/diaperChangeGame.js"; // Import the new route
+import babyFoodGameRoutes from "./routes/babyFoodGame.js"; // Import the new route
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-
 
 // Allow us to use .env file
 dotenv.config();
@@ -23,13 +24,15 @@ app.use(cors({
 // Routes
 app.use("/auth", authRoutes);
 app.use("/game-quiz-items-baby", gameQuizItemsBabyRoutes);
+app.use("/diaper-change-game", diaperChangeGameRoutes); // Add the new route
+app.use("/baby-food-game", babyFoodGameRoutes); // Add the new route
 
 mongoose
   .connect(MONGODB_URL)
   .then(() => {
     console.log("App connected to database");
     app.listen(PORT, () => {
-      console.log(`App is listening top port : ${PORT}`);
+      console.log(`App is listening on port: ${PORT}`);
     });
   })
   .catch((error) => {

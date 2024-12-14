@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../store/slices/authSlice';
+import Button from '../components/ui/Button';
 
 const schema = yup.object().shape({
   email: yup.string().email('Email invalide').required('Email est requis'),
@@ -32,7 +33,7 @@ function Login() {
         toast.success('Connexion réussie');
         setTimeout(() => {
           navigate('/');
-        }, 2000); 
+        }, 1000); 
       }
     } catch (error) {
       toast.error('Échec de la connexion');
@@ -73,7 +74,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <motion.div 
         className="w-full max-w-md p-8 bg-top-gray-brown-light rounded-lg shadow-lg mx-5"
         initial="hidden"
@@ -109,12 +110,12 @@ function Login() {
             {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
           </motion.div>
           <motion.div initial="hidden" animate="visible" variants={titleVariants} custom={3}>
-            <button 
+            <Button 
               type="submit" 
               className={buttonClasses}
             >
               Se connecter
-            </button>
+            </Button>
           </motion.div>
         </form>
         <div className="mt-6">

@@ -1,12 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import axios from "axios";
-
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import Button from "../components/ui/Button";
+import ModalChronoGame from "../components/modalChronoGame";
+import ModalItemsQuizBaby from "../components/modalItemsQuizBaby";
+import ModalGoutGame from "../components/modalGoutGame";
 const Games = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [items, setItems] = useState([]);
-  console.log(items);
-
   // A terme les jeux seront dynamiques et alimenter par le back. l'organisateur de la genderReveal sera en charge de les ajouter. pourra créer ces propre jeu et quiz.
   const games = [
     {
@@ -20,20 +18,20 @@ const Games = () => {
       title: "Qui a du caca kaki collé au cucul",
       description: "Combien de temps tu as mis pour changer la couche ?",
     },
-    { id: 3, title: "Jeu 3", description: "Description du Jeu 3" },
+    { id: 3, title: "Après l'odorat le goût", description: "Découvrez parmi les aliments qu'on te propose, lesquels sont dans les pots." },
   ];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTimerModalOpen, setIsTimerModalOpen] = useState(false);
+  const [isGoutModalOpen, setIsGoutModalOpen] = useState(false);
+  const user = useSelector((state) => state.auth.user);
 
-  const handlePlayClick = async (gameId) => {
+  const handlePlayClick = (gameId) => {
     if (gameId === 1) {
-      try {
-        const response = await axios.get(
-          "http://localhost:5555/game-quiz-items-baby/items-quiz"
-        );
-        setItems(response.data); // Assuming response.data is an array of items
-        setIsModalOpen(true);
-      } catch (error) {
-        console.error("Error fetching items:", error);
-      }
+      setIsModalOpen(true);
+    } else if (gameId === 2) {
+      setIsTimerModalOpen(true);
+    } else if (gameId === 3) {
+      setIsGoutModalOpen(true);
     }
   };
 
@@ -49,42 +47,34 @@ const Games = () => {
               {game.title}
             </h2>
             <p className="text-gray-600">{game.description}</p>
-            <button
-              className="mt-4 bg-top-gray-brown-dark text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors w-full"
-              onClick={() => handlePlayClick(game.id)}
-            >
-              Jouer
-            </button>
+            <Button onClick={() => handlePlayClick(game.id)}>
+              {game.buttonName ?? "Jouer"}
+            </Button>
           </div>
         ))}
       </div>
 
-      {/* {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Le juste prix</h2>
-            <form>
-              {items?.map((item, index) => (
-                <div key={index} className="mb-4">
-                  <label className="block text-gray-700">{item.name}</label>
-                  <input
-                    type="number"
-                    className="w-full px-3 py-2 border rounded"
-                    placeholder="Enter price"
-                  />
-                </div>
-              ))}
-              <button
-                type="button"
-                className="bg-blue-600 text-white py-2 px-4 rounded"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
-      )} */}
+      {isModalOpen && (
+        <ModalItemsQuizBaby
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          user={user}
+        />
+      )}
+
+      {isTimerModalOpen && (
+        <ModalChronoGame
+          isOpen={isTimerModalOpen}
+          onClose={() => setIsTimerModalOpen(false)}
+        />
+      )}
+
+      {isGoutModalOpen && (
+        <ModalGoutGame
+          isOpen={isGoutModalOpen}
+          onClose={() => setIsGoutModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
