@@ -6,7 +6,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 flex justify-end items-center">
           <motion.img 
             className="w-1/3" 
-            src="/src/assets/teddy-bear.png" 
+            src="./assets/teddy-bear.png" 
             alt="Teddy Bear"
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
