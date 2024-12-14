@@ -20,4 +20,45 @@ router.post("/submit", async (req, res) => {
   }
 });
 
+const potsFlavors = [
+  {
+    potId: 1,
+    correctFlavors: ["Banane", "Pomme", "Carotte"]
+  },
+  {
+    potId: 2,
+    correctFlavors: ["Pêche", "Poire", "Épinard"]
+  },
+  {
+    potId: 3,
+    correctFlavors: ["Mangue", "Patate douce", "Brocoli"]
+  }
+];
+// GET all responses for baby food game
+router.get("/get-all-responses", async (req, res) => {
+  try {
+    const responses = await BabyFoodGameResponse.find();
+    res.json(responses);
+  } catch (error) {
+    res.status(500).send("Error retrieving responses");
+  }
+});
+
+
+const allFlavors = [
+  "Banane",
+  "Pomme",
+  "Carotte",
+  "Pêche",
+  "Poire",
+  "Épinard",
+  "Mangue",
+  "Patate douce",
+  "Brocoli"
+];
+router.get("/get-all-flavors", (req, res) => {
+  res.json(allFlavors);
+});
+
+
 export default router;

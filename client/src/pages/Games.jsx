@@ -5,6 +5,7 @@ import ModalChronoGame from "../components/modalChronoGame";
 import ModalItemsQuizBaby from "../components/modalItemsQuizBaby";
 import ModalGoutGame from "../components/modalGoutGame";
 const Games = () => {
+  const user = useSelector((state) => state.auth.user);
   // A terme les jeux seront dynamiques et alimenter par le back. l'organisateur de la genderReveal sera en charge de les ajouter. pourra créer ces propre jeu et quiz.
   const games = [
     {
@@ -23,7 +24,6 @@ const Games = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTimerModalOpen, setIsTimerModalOpen] = useState(false);
   const [isGoutModalOpen, setIsGoutModalOpen] = useState(false);
-  const user = useSelector((state) => state.auth.user);
 
   const handlePlayClick = (gameId) => {
     if (gameId === 1) {
@@ -66,6 +66,7 @@ const Games = () => {
         <ModalChronoGame
           isOpen={isTimerModalOpen}
           onClose={() => setIsTimerModalOpen(false)}
+          user={user}
         />
       )}
 
@@ -73,6 +74,7 @@ const Games = () => {
         <ModalGoutGame
           isOpen={isGoutModalOpen}
           onClose={() => setIsGoutModalOpen(false)}
+          user={user}
         />
       )}
     </div>
