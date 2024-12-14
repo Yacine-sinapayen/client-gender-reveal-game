@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { GamepadIcon, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
   console.log(user);
@@ -43,8 +44,9 @@ const Dashboard = () => {
         throw new Error("Network response was not ok");
       }
 
-      const result = await response.json();
+      toast.success("Réponses soumises avec succès");
       console.log("Success:", result);
+      const result = await response.json();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -65,9 +67,8 @@ const Dashboard = () => {
             className="mb-2"
             src="/src/assets/cmf.png"
             alt="Teddy Bear"
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
           />
         </button>
         <button
@@ -79,9 +80,8 @@ const Dashboard = () => {
             className="h-full mb-2"
             src="/src/assets/ski.png"
             alt="Teddy Bear"
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
           />
         </button>
       </div>
@@ -160,6 +160,7 @@ const Dashboard = () => {
           </Button> */}
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };
