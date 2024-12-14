@@ -243,9 +243,9 @@ function Leaderboard() {
                 <td className="py-2 px-4 border-b">{response.username}</td>
                 <td className="py-2 px-4 border-b">
                   {response.isGirl ? (
-                    <GirlIcon size={20} />
+                    "Fille"
                   ) : (
-                    <BoyIcon size={20} />
+                    "Garçon"
                   )}
                 </td>
               </tr>
