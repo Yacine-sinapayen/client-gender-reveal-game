@@ -39,7 +39,7 @@ function ModalGoutGame({ isOpen, onClose, user }) {
       }));
 
       const response = await axios.post(
-        "http://localhost:5555/baby-food-game/submit",
+        "/baby-food-game/submit",
         { userId: user._id, potResponses }
       );
       onClose();
@@ -55,7 +55,7 @@ function ModalGoutGame({ isOpen, onClose, user }) {
       const fetchItemsFlavors = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:5555/baby-food-game/get-all-flavors"
+            `${process.env.REACT_APP_API_URL}/baby-food-game/get-all-flavors`
           );
           setItemsFlavors(response.data);
         } catch (error) {

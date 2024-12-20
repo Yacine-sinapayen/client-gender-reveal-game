@@ -39,7 +39,7 @@ function ModalChronoGame({ isOpen, onClose, user }) {
     const timeTaken = time;
 
     try {
-      const response = await axios.post('http://localhost:5555/diaper-change-game/submit-time', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/diaper-change-game/submit-time`, {
         userId,
         timeTaken,
       });

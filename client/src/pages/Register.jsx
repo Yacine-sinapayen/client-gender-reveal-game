@@ -39,7 +39,7 @@ function Register() {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:5555/auth/register",
+        `${process.env.REACT_APP_API_URL}/auth/register`,
         data
       );
       if (response.status === 201) {

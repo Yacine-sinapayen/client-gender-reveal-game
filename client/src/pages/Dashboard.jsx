@@ -30,7 +30,7 @@ const Dashboard = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5555/gender-guess-game/submit",
+        `${process.env.REACT_APP_API_URL}/gender-guess-game/submit`,
         {
           method: "POST",
           headers: {

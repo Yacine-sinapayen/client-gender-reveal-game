@@ -27,7 +27,7 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('http://localhost:5555/auth/login', data);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, data);
       if (response.status === 200 || response.status === 201) {
         dispatch(loginSuccess({ user: response.data.user, token: response.data.token }));
         toast.success('Connexion réussie');
