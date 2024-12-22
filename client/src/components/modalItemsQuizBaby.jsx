@@ -14,7 +14,7 @@ const ModalItemsQuizBaby = ({ isOpen, onClose, user }) => {
       const fetchItems = async () => {
         try {
           const response = await axios.get(
-            `${process.env.REACT_APP_API_URL}/game-quiz-items-baby/items-quiz-baby`
+            `${import.meta.env.VITE_API_URL}/game-quiz-items-baby/items-quiz-baby`
           );
           setItems(response.data);
         } catch (error) {
@@ -45,7 +45,7 @@ const ModalItemsQuizBaby = ({ isOpen, onClose, user }) => {
 
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/game-quiz-items-baby/submit`,
+        `${import.meta.env.VITE_API_URL}/game-quiz-items-baby/submit`,
         data
       );
       onClose();

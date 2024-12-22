@@ -30,7 +30,7 @@ const Dashboard = () => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/gender-guess-game/submit`,
+        `${import.meta.env.VITE_API_URL}/gender-guess-game/submit`,
         {
           method: "POST",
           headers: {

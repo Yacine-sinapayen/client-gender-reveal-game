@@ -12,7 +12,7 @@ function Leaderboard() {
   useEffect(() => {
     async function fetchGenderGuessResponses() {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/gender-guess-game/responses`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/gender-guess-game/responses`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -28,7 +28,7 @@ function Leaderboard() {
   useEffect(() => {
     async function fetchScores() {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/game-quiz-items-baby/ranked-scores`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/game-quiz-items-baby/ranked-scores`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -45,7 +45,7 @@ function Leaderboard() {
   useEffect(() => {
     async function fetchScores() {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/baby-food-game/ranked-scores`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/baby-food-game/ranked-scores`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -62,7 +62,7 @@ function Leaderboard() {
   useEffect(() => {
     async function fetchOtherData() {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/diaper-change-game/ranked-scores`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/diaper-change-game/ranked-scores`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
