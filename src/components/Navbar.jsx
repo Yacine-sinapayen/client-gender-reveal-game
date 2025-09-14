@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Trophy, GamepadIcon, LayoutDashboard, LogOut } from 'lucide-react';
 import { logout } from '../store/slices/authSlice';
@@ -9,7 +9,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-
+  const location = useLocation();
+  
   const handleLogout = () => {
     dispatch(logout());
     navigate('/login');
@@ -20,11 +21,13 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
-            <Link to="/" className="text-xl font-bold">
+            {location.pathname !== '/login' && location.pathname !== '/register' && (
+            <Link to="/" className="text-xl">
               Accueil
             </Link>
+            )}
             {user && (
-              <h2 className="text-xl font-bold">Hello {user?.username ?? "La team"}</h2>
+              <h2 className="text-xl">Salut {user?.username ?? "La team"}</h2>
             )}
             <div className="hidden md:flex items-center space-x-4 bg-green-500">
               <Link

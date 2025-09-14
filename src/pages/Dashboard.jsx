@@ -55,7 +55,7 @@ const Dashboard = () => {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="flex justify-center mb-4 font-bold">
-        <h1>Suis-je un garçon ou une fille ? Click sur l'un des deux.</h1>
+        <h1>Fille ou garçon ?</h1>
       </div>
       <div className="flex justify-center items-center h-[20vh] mb-4">
         <button

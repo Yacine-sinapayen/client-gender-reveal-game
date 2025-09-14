@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { FaApple, FaGoogle } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +14,7 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .min(6, "Le mot de passe doit contenir au moins 6 caractères")
-    .required("Mot de passe est requis"), // Changement de string à string
+    .required("Mot de passe est requis"),
   confirmPassword: yup
     .string()
     .oneOf(
@@ -23,10 +22,15 @@ const schema = yup.object().shape({
       "Les mots de passe doivent correspondre"
     )
     .required("Confirmation du mot de passe est requise"),
+  role: yup
+    .string()
+    .oneOf(["player", "organizer"], "Veuillez sélectionner un rôle")
+    .required("Un rôle est requis"),
 });
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  
   const {
     register,
     handleSubmit,
@@ -46,10 +50,10 @@ function Register() {
         toast.success("Utilisateur enregistré");
         setTimeout(() => {
           navigate("/");
-        }, 2000); // Redirection après 2 secondes
+        }, 2000);
       }
     } catch (error) {
-      toast.error("Une erreur s'est produite lors de l'inscription");
+      toast.error("Une erreur s'est produite lors de l'inscription", error);
     }
   };
 
@@ -86,13 +90,13 @@ function Register() {
       <div className="flex items-center justify-center w-full">
         <div className="p-3 bg-top-gray-brown-light rounded-lg shadow-lg">
           <motion.h1
-            className="text-4xl font-bold mb-8 text-center text-gray-900"
+            className="text-4xl mb-8 text-center text-gray-900"
             initial="hidden"
             animate="visible"
             variants={titleVariants}
             custom={0}
           >
-            Baby Sinaps
+            Inscrivez-vous
           </motion.h1>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -138,6 +142,28 @@ function Register() {
               variants={titleVariants}
               custom={3}
             >
+              <select
+                {...register("role")}
+                className={inputClasses}
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Sélectionnez votre rôle
+                </option>
+                <option value="player">Joueur</option>
+                <option value="organizer">Organisateur</option>
+              </select>
+              {errors.role && (
+                <p className="text-red-500 text-sm">{errors.role.message}</p>
+              )}
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={titleVariants}
+              custom={4}
+            >
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Mot de passe"
@@ -155,7 +181,7 @@ function Register() {
               initial="hidden"
               animate="visible"
               variants={titleVariants}
-              custom={4}
+              custom={5}
             >
               <input
                 type={showPassword ? "text" : "password"}
@@ -174,7 +200,7 @@ function Register() {
               initial="hidden"
               animate="visible"
               variants={titleVariants}
-              custom={5}
+              custom={6}
             >
               <label className="flex items-center mb-4">
                 <input
@@ -191,7 +217,7 @@ function Register() {
               initial="hidden"
               animate="visible"
               variants={titleVariants}
-              custom={6}
+              custom={7}
             >
               <button type="submit" className={buttonClasses}>
                 S'inscrire
