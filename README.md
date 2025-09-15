@@ -18,3 +18,5 @@ Currently, two official plugins are available:
 1. cd backend
 2. Run `npm install` to install the dependencies
 3. Run `npm run dev` to start the development server
+
+# For CI/CD TEST check github/workflows/README.md
