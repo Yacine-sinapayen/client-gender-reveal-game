@@ -61,7 +61,7 @@ describe('Register Component', () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Nom d\'utilisateur est requis')).toBeInTheDocument();
+      expect(screen.getByText('Nom d&apos;utilisateur est requis')).toBeInTheDocument();
       expect(screen.getByText('Email est requis')).toBeInTheDocument();
       expect(screen.getByText('Le mot de passe doit contenir au moins 6 caractères')).toBeInTheDocument();
       expect(screen.getByText('Confirmation du mot de passe est requise')).toBeInTheDocument();
