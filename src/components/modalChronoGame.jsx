@@ -62,7 +62,7 @@ function ModalChronoGame({ isOpen, onClose, user }) {
         </button>
         <h2 className="text-xl font-bold">Chronomètre</h2>
         <p>Temps écoulé: {time} secondes</p>
-        <Button onClick={handleStop} variant="secondary">
+        <Button onClick={handleStop}>
           Arrêter le chrono
         </Button>
         {isStopped && (

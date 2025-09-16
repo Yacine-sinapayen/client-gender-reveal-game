@@ -229,7 +229,7 @@ function Register() {
             Vous avez déjà un compte ?{" "}
             <a
               href="/"
-              className="text-font-dark font-semibold hover:underline"
+              className="text-gradient-rose-bleu text-gradient-rose-bleu-hover font-semibold transition-all duration-300"
             >
               Se connecter
             </a>

@@ -1,15 +1,31 @@
 import React from "react";
 
-const Button = ({ onClick, children, className = "", variant = "primary", ...props }) => {
-   const variantClasses = {
-    primary: "bg-top-gray-brown-dark text-white",
-    secondary: "bg-top-gray-brown-light border border-top-gray-brown-dark text-black",
+const Button = ({ 
+  onClick, 
+  children, 
+  className = "", 
+  size = "md",
+  fullWidth = false,
+  ...props 
+}) => {
+  const sizeClasses = {
+    sm: "py-1 px-3 text-sm",
+    md: "py-2 px-4 text-base",
+    lg: "py-3 px-6 text-lg",
   };
+
+  const baseClasses = `
+    bg-gradient-rose-bleu text-white hover:opacity-90 shadow-lg
+    ${sizeClasses[size]} 
+    ${fullWidth ? 'w-full' : 'w-auto'}
+    rounded-md transition-all duration-300 transform hover:scale-105
+    ${className}
+  `.trim();
 
   return (
     <button
       type="button"
-      className={`mt-4 bg-top-gray-brown-dark text-white py-2 px-4 rounded transition-colors w-full ${variantClasses[variant]}`}
+      className={baseClasses}
       onClick={onClick}
       {...props}
     >

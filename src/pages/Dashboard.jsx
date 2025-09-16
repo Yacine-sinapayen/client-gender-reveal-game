@@ -155,7 +155,7 @@ const Dashboard = () => {
 
       {user?.isOrganizer && (
         <div className="mt-6">
-          {/* <Button variant="primary" size="lg">
+          {/* <Button size="lg">
             Manage Games
           </Button> */}
         </div>

@@ -13,7 +13,7 @@ import { store } from "./store";
 function App() {
   return (
     <Provider store={store}>
-      <div className="bg-top-gray-brown min-h-screen">
+      <div className="bg-fond-clair">
         <Routes>
           <Route element={<Layout />}>
             <Route path="/login" element={<Login />} />

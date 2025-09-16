@@ -91,7 +91,7 @@ const ModalItemsQuizBaby = ({ isOpen, onClose, user }) => {
             </div>
           ))}
           <Button onClick={handleSubmit}>Valider</Button>
-          <Button onClick={onClose} variant="secondary">
+          <Button onClick={onClose}>
             Annuler
           </Button>
         </form>

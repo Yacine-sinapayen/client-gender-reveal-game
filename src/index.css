@@ -2,4 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Classes personnalisées pour les dégradés de texte */
+@layer utilities {
+  .text-gradient-rose-bleu {
+    background: linear-gradient(135deg, #F7A8B8 0%, #9EC9EB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-rose-bleu-hover:hover {
+    background: linear-gradient(135deg, #9EC9EB 0%, #F7A8B8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
 
