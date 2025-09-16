@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Button from './ui/Button';
 import { FaTimes } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -39,7 +39,7 @@ function ModalChronoGame({ isOpen, onClose, user }) {
     const timeTaken = time;
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/diaper-change-game/submit-time`, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/diaper-change-game/submit-time`, {
         userId,
         timeTaken,
       });
@@ -74,5 +74,13 @@ function ModalChronoGame({ isOpen, onClose, user }) {
     </div>
   );
 }
+
+ModalChronoGame.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default ModalChronoGame;

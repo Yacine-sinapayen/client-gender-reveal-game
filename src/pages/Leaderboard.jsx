@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 function Leaderboard() {
@@ -104,12 +104,6 @@ function Leaderboard() {
     })
   };
 
-  // Function to get username from userId
-  const getUsernameFromUserId = (userId) => {
-    // This function should return the username based on the userId
-    // For example, it could be a lookup from a pre-fetched list of users
-    return "Username"; // Placeholder
-  };
 
   return (
     <div className="p-4">
@@ -126,7 +120,7 @@ function Leaderboard() {
           <thead>
             <tr>
               <th className="py-2 px-4 border-b">Classement</th>
-              <th className="py-2 px-4 border-b">Nom d'utilisateur</th>
+              <th className="py-2 px-4 border-b">Nom d&apos;utilisateur</th>
               <th className="py-2 px-4 border-b">Score</th>
             </tr>
           </thead>
@@ -153,7 +147,7 @@ function Leaderboard() {
           <thead>
             <tr>
               <th className="py-2 px-4 border-b">Classement</th>
-              <th className="py-2 px-4 border-b">Nom d'utilisateur</th>
+              <th className="py-2 px-4 border-b">Nom d&apos;utilisateur</th>
               <th className="py-2 px-4 border-b">Score</th>
             </tr>
           </thead>
@@ -180,7 +174,7 @@ function Leaderboard() {
           <thead>
             <tr>
               <th className="py-2 px-4 border-b">Classement</th>
-              <th className="py-2 px-4 border-b">Nom d'utilisateur</th>
+              <th className="py-2 px-4 border-b">Nom d&apos;utilisateur</th>
               <th className="py-2 px-4 border-b">Score</th>
             </tr>
           </thead>
@@ -207,7 +201,7 @@ function Leaderboard() {
         <thead>
           <tr>
             <th className="py-2 px-4 border-b">Classement</th>
-            <th className="py-2 px-4 border-b">Nom d'utilisateur</th>
+            <th className="py-2 px-4 border-b">Nom d&apos;utilisateur</th>
             <th className="py-2 px-4 border-b">Score Total</th>
           </tr>
         </thead>
@@ -233,7 +227,7 @@ function Leaderboard() {
         <table className="min-w-full bg-top-gray-brown-light border border-gray-200">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b">Nom d'utilisateur</th>
+              <th className="py-2 px-4 border-b">Nom d&apos;utilisateur</th>
               <th className="py-2 px-4 border-b">Genre</th>
             </tr>
           </thead>

@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { GamepadIcon, Trophy } from "lucide-react";
@@ -144,7 +143,7 @@ const Dashboard = () => {
                   Classement
                 </h2>
                 <p className="text-gray-600">
-                  Voyons qui est en tête et qui a besoin d'un peu plus de
+                  Voyons qui est en tête et qui a besoin d&apos;un peu plus de
                   pratique !
                 </p>
               </div>

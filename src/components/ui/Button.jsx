@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from 'prop-types';
 
 const Button = ({ 
   onClick, 
@@ -32,6 +32,20 @@ const Button = ({
       {children}
     </button>
   );
+};
+
+Button.propTypes = {
+  onClick: PropTypes.func,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  fullWidth: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  className: "",
+  size: "md",
+  fullWidth: false,
 };
 
 export default Button;

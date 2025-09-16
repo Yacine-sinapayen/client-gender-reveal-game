@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 const Card = ({ 
   children, 
@@ -26,6 +26,17 @@ const Card = ({
       {children}
     </div>
   );
+};
+
+Card.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  borderColor: PropTypes.oneOf(['rose-pastel', 'bleu-pastel']),
+};
+
+Card.defaultProps = {
+  className: "",
+  borderColor: "rose-pastel",
 };
 
 export default Card;

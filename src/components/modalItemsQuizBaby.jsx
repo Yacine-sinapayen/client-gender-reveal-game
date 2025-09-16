@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 import axios from "axios";
 import Button from "./ui/Button";
 import { toast } from "react-toastify";
@@ -98,6 +99,14 @@ const ModalItemsQuizBaby = ({ isOpen, onClose, user }) => {
       </div>
     </div>
   );
+};
+
+ModalItemsQuizBaby.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ModalItemsQuizBaby;

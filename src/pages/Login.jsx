@@ -4,7 +4,7 @@ import * as yup from "yup";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { FaApple, FaGoogle } from "react-icons/fa";
-import { Mail, Lock, UserPlus } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";

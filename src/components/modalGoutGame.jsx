@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 import Button from "./ui/Button";
-import { toast, ToastContainer } from "react-toastify";
-
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function ModalGoutGame({ isOpen, onClose, user }) {
@@ -38,7 +38,7 @@ function ModalGoutGame({ isOpen, onClose, user }) {
         correctItems: [], // Assuming you will fill this with correct items later
       }));
 
-      const response = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_API_URL}/baby-food-game/submit`,
         { userId: user._id, potResponses }
       );
@@ -75,7 +75,7 @@ function ModalGoutGame({ isOpen, onClose, user }) {
         >
           &times;
         </button>{" "}
-        <h2 className="text-xl font-bold p-4">Après l'odorat le goût</h2>
+        <h2 className="text-xl font-bold p-4">Après l&apos;odorat le goût</h2>
         <form className="p-4">
           {["pot1", "pot2", "pot3"].map((pot, index) => (
             <div key={pot} className="mb-4">
@@ -107,5 +107,13 @@ function ModalGoutGame({ isOpen, onClose, user }) {
     </div>
   );
 }
+
+ModalGoutGame.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default ModalGoutGame;

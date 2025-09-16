@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
-  username: yup.string().required("Nom d'utilisateur est requis"),
+  username: yup.string().required("Nom d&apos;utilisateur est requis"),
   email: yup.string().email("Email invalide").required("Email est requis"),
   password: yup
     .string()
@@ -108,7 +108,7 @@ function Register() {
             >
               <input
                 type="text"
-                placeholder="Nom d'utilisateur"
+                placeholder="Nom d&apos;utilisateur"
                 {...register("username")}
                 className={inputClasses}
               />
@@ -220,7 +220,7 @@ function Register() {
               custom={7}
             >
               <button type="submit" className={buttonClasses}>
-                S'inscrire
+                S&apos;inscrire
               </button>
             </motion.div>
           </form>
