@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { GamepadIcon, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
+import Button from "../components/ui/Button";
+import Title from "../components/ui/Title";
+
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
   console.log(user);
@@ -53,112 +56,164 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="flex justify-center mb-4 font-bold">
-        <h1>Fille ou garçon ?</h1>
-      </div>
-      <div className="flex justify-center items-center h-[20vh] mb-4">
-        <button
-          id="its-a-boy"
-          className="w-1/2 mb-2 h-full"
-          onClick={handleButtonClick}
-        >
-          <motion.img
-            className="mb-2"
-            src="/src/assets/cmf.png"
-            alt="Teddy Bear"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
-          />
-        </button>
-        <button
-          id="its-a-girl"
-          className="w-1/2 mb-2"
-          onClick={handleButtonClick}
-        >
-          <motion.img
-            className="h-full mb-2"
-            src="/src/assets/ski.png"
-            alt="Teddy Bear"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
-          />
-        </button>
-      </div>
-      <div className="flex justify-center items-center">
-        <motion.div
-          className="bg-top-gray-brown-light rounded-lg shadow-sm p-5 mb-6"
-          initial="hidden"
-          animate="visible"
-          variants={titleVariants}
-          custom={1}
-        >
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Coucou, {user?.username}!
-          </h1>
-          <p className="text-gray-600">
-            Prêt à découvrir si je suis un petit gars ou une petite fille ?
-            Choisissez un jeu et montrez-moi vos talents !
-          </p>
-        </motion.div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Link to="/games">
-          <motion.div
-            className="bg-top-gray-brown-light rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow"
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-            custom={2}
-          >
-            <div className="flex items-center space-x-4">
-              <div className="bg-blue-100 p-3 rounded-full">
-                <GamepadIcon className="h-6 w-6" />
-              </div>
-              <div>
-                <h2 className="text-xl font-semibold text-gray-900">
-                  Jouer aux Jeux
-                </h2>
-                <p className="text-gray-600">
-                  Venez vous amuser et montrez-moi qui est le champion !
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </Link>
-
-        <Link to="/leaderboard">
-          <motion.div
-            className="bg-top-gray-brown-light rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow"
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-            custom={3}
-          >
-            <div className="flex items-center space-x-4">
-              <div className="bg-purple-100 p-3 rounded-full">
-                <Trophy className="h-6 w-6" />
-              </div>
-              <div>
-                <h2 className="text-xl font-semibold text-gray-900">
-                  Classement
-                </h2>
-                <p className="text-gray-600">
-                  Voyons qui est en tête et qui a besoin d&apos;un peu plus de
-                  pratique !
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </Link>
-      </div>
-
-      {user?.isOrganizer && (
+      {user?.role === "organizer" ? (
         <div className="mt-6">
-          {/* <Button size="lg">
-            Manage Games
-          </Button> */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={titleVariants}
+            custom={4}
+          >
+            <Title level={2} className="text-2xl font-bold text-marron-chaud mb-4 text-center">
+              Espace Organisateur
+            </Title>
+            <div className="flex justify-center mb-4">
+              <Button
+                size="lg"
+                onClick={() => {
+                  // TODO: Ouvrir modal de création de partie
+                  console.log("Créer une partie");
+                }}
+              >
+                🎮 Créer une partie
+              </Button>
+            </div>
+            <div className="flex justify-center  mb-4">
+              <Button
+                size="lg"
+                onClick={() => {
+                  // TODO: Ouvrir modal de création de partie
+                  console.log("Créer une partie");
+                }}
+              >
+                Créer une partie
+              </Button>
+            </div>
+            <div className="flex justify-center  mb-4">
+              <Button
+                size="lg"
+                onClick={() => {
+                  // TODO: Ouvrir modal de création de partie
+                  console.log("Créer une partie");
+                }}
+              >
+                Créer une partie
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      ) : (
+        <div>
+          <h1>Vous n'êtes pas un organisateur</h1>
+          <div className="flex justify-center mb-4 font-bold">
+            <h1>Fille ou garçon ?</h1>
+          </div>
+          <div className="flex justify-center items-center h-[20vh] mb-4">
+            <button
+              id="its-a-boy"
+              className="w-1/2 mb-2 h-full"
+              onClick={handleButtonClick}
+            >
+              <motion.img
+                className="mb-2"
+                src="/src/assets/cmf.png"
+                alt="Teddy Bear"
+                animate={{ y: [0, -10, 0] }}
+                transition={{
+                  duration: 2,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+              />
+            </button>
+            <button
+              id="its-a-girl"
+              className="w-1/2 mb-2"
+              onClick={handleButtonClick}
+            >
+              <motion.img
+                className="h-full mb-2"
+                src="/src/assets/ski.png"
+                alt="Teddy Bear"
+                animate={{ y: [0, -10, 0] }}
+                transition={{
+                  duration: 2,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+              />
+            </button>
+          </div>
+          <div className="flex justify-center items-center">
+            <motion.div
+              className="bg-top-gray-brown-light rounded-lg shadow-sm p-5 mb-6"
+              initial="hidden"
+              animate="visible"
+              variants={titleVariants}
+              custom={1}
+            >
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                Coucou, {user?.username}!
+              </h1>
+              <p className="text-gray-600">
+                Prêt à découvrir si je suis un petit gars ou une petite fille ?
+                Choisissez un jeu et montrez-moi vos talents !
+              </p>
+            </motion.div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Link to="/games">
+              <motion.div
+                className="bg-top-gray-brown-light rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow"
+                initial="hidden"
+                animate="visible"
+                variants={titleVariants}
+                custom={2}
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="bg-blue-100 p-3 rounded-full">
+                    <GamepadIcon className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900">
+                      Jouer aux Jeux
+                    </h2>
+                    <p className="text-gray-600">
+                      Venez vous amuser et montrez-moi qui est le champion !
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
+
+            <Link to="/leaderboard">
+              <motion.div
+                className="bg-top-gray-brown-light rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow"
+                initial="hidden"
+                animate="visible"
+                variants={titleVariants}
+                custom={3}
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="bg-purple-100 p-3 rounded-full">
+                    <Trophy className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900">
+                      Classement
+                    </h2>
+                    <p className="text-gray-600">
+                      Voyons qui est en tête et qui a besoin d&apos;un peu plus
+                      de pratique !
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
+          </div>
         </div>
       )}
+
       <ToastContainer />
     </div>
   );
