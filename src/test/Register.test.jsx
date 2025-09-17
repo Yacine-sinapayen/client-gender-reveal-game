@@ -61,11 +61,11 @@ describe('Register Component', () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Nom d&apos;utilisateur est requis')).toBeInTheDocument();
+      expect(screen.getByText("Nom d'utilisateur requis")).toBeInTheDocument();
       expect(screen.getByText('Email est requis')).toBeInTheDocument();
       expect(screen.getByText('Le mot de passe doit contenir au moins 6 caractères')).toBeInTheDocument();
-      expect(screen.getByText('Confirmation du mot de passe est requise')).toBeInTheDocument();
-      expect(screen.getByText('Veuillez sélectionner un rôle')).toBeInTheDocument();
+      expect(screen.getByText('La confirmation du mot de passe est requise')).toBeInTheDocument();
+      expect(screen.getByText('Un rôle est requis')).toBeInTheDocument();
     });
   });
 
@@ -76,7 +76,12 @@ describe('Register Component', () => {
     // Remplir tous les champs avec un email invalide
     await user.type(screen.getByPlaceholderText('Nom d\'utilisateur'), 'testuser');
     await user.type(screen.getByPlaceholderText('Email'), 'invalid-email');
-    await user.selectOptions(screen.getByRole('combobox'), 'player');
+    
+    // Cliquer sur le bouton de sélection de rôle et sélectionner une option
+    const roleButton = screen.getByText('Sélectionnez votre rôle');
+    await user.click(roleButton);
+    await user.click(screen.getByText('Joueur'));
+    
     await user.type(screen.getByPlaceholderText('Mot de passe'), 'password123');
     await user.type(screen.getByPlaceholderText('Confirmez le mot de passe'), 'password123');
     
@@ -136,7 +141,12 @@ describe('Register Component', () => {
     // Fill in the form
     await user.type(screen.getByPlaceholderText('Nom d\'utilisateur'), 'testuser');
     await user.type(screen.getByPlaceholderText('Email'), 'test@example.com');
-    await user.selectOptions(screen.getByRole('combobox'), 'player');
+    
+    // Cliquer sur le bouton de sélection de rôle et sélectionner une option
+    const roleButton = screen.getByText('Sélectionnez votre rôle');
+    await user.click(roleButton);
+    await user.click(screen.getByText('Joueur'));
+    
     await user.type(screen.getByPlaceholderText('Mot de passe'), 'password123');
     await user.type(screen.getByPlaceholderText('Confirmez le mot de passe'), 'password123');
     
@@ -169,7 +179,12 @@ describe('Register Component', () => {
     // Fill in the form
     await user.type(screen.getByPlaceholderText('Nom d\'utilisateur'), 'testuser');
     await user.type(screen.getByPlaceholderText('Email'), 'test@example.com');
-    await user.selectOptions(screen.getByRole('combobox'), 'player');
+    
+    // Cliquer sur le bouton de sélection de rôle et sélectionner une option
+    const roleButton = screen.getByText('Sélectionnez votre rôle');
+    await user.click(roleButton);
+    await user.click(screen.getByText('Joueur'));
+    
     await user.type(screen.getByPlaceholderText('Mot de passe'), 'password123');
     await user.type(screen.getByPlaceholderText('Confirmez le mot de passe'), 'password123');
     
@@ -216,7 +231,12 @@ describe('Register Component', () => {
     // Fill in the form
     await user.type(screen.getByPlaceholderText('Nom d\'utilisateur'), 'testuser');
     await user.type(screen.getByPlaceholderText('Email'), 'test@example.com');
-    await user.selectOptions(screen.getByRole('combobox'), 'player');
+    
+    // Cliquer sur le bouton de sélection de rôle et sélectionner une option
+    const roleButton = screen.getByText('Sélectionnez votre rôle');
+    await user.click(roleButton);
+    await user.click(screen.getByText('Joueur'));
+    
     await user.type(screen.getByPlaceholderText('Mot de passe'), 'password123');
     await user.type(screen.getByPlaceholderText('Confirmez le mot de passe'), 'password123');
     

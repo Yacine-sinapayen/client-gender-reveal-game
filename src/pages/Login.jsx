@@ -73,12 +73,23 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="min-h-screen flex items-center justify-center w-full relative">
+      {/* Image de l'oursson en arrière-plan */}
+      <motion.img
+        className="absolute top-4 right-4 w-32 h-32 z-0"
+        src="/assets/teddy-bear.png"
+        alt="Teddy Bear"
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}
+      />
+      
       <motion.div
-        className="w-full max-w-md mx-5"
+        className="w-full max-w-md mx-5 z-10"
         initial="hidden"
         animate="visible"
         variants={cardVariants}
+        transition={{ delay: 1.2 }}
       >
         <Card borderColor="rose-pastel">
           <Title level={1} animationDelay={0}>

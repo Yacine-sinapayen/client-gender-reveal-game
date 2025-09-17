@@ -15,9 +15,12 @@ function App() {
     <Provider store={store}>
       <div className="bg-fond-clair">
         <Routes>
+          {/* Routes sans navbar (Login et Register) */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          
+          {/* Routes avec navbar (Layout) */}
           <Route element={<Layout />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/games" element={<Games />} />

@@ -4,12 +4,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { FaApple, FaGoogle } from "react-icons/fa";
+import { Mail, Lock, User } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/ui/Button";
+import Card from "../components/ui/Card";
+import Title from "../components/ui/Title";
+import Select from "../components/ui/Select";
 
 const schema = yup.object().shape({
-  username: yup.string().required("Nom d&apos;utilisateur est requis"),
+  username: yup.string().required("Nom d'utilisateur requis"),
   email: yup.string().email("Email invalide").required("Email est requis"),
   password: yup
     .string()
@@ -21,7 +27,7 @@ const schema = yup.object().shape({
       [yup.ref("password"), null],
       "Les mots de passe doivent correspondre"
     )
-    .required("Confirmation du mot de passe est requise"),
+    .required("La confirmation du mot de passe est requise"),
   role: yup
     .string()
     .oneOf(["player", "organizer"], "Veuillez sélectionner un rôle")
@@ -30,6 +36,7 @@ const schema = yup.object().shape({
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedRole, setSelectedRole] = useState('');
   
   const {
     register,
@@ -58,118 +65,135 @@ function Register() {
   };
 
   const inputClasses =
-    "w-full px-3 py-2 mb-4 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition-all duration-300 hover:border-blue-300 hover:scale-[1.02]";
-  const buttonClasses =
-    "bg-top-gray-brown-dark w-full py-2 px-4 text-white font-semibold rounded-md hover:bg-blue-600 transition-all duration-300";
+    "w-full pl-10 pr-3 py-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition-all duration-300 hover:border-blue-300 hover:scale-[1.02]";
+  const inputContainerClasses = "relative mb-3 flex items-center";
+  const fieldContainerClasses = "mb-3";
+  const checkboxContainerClasses = "mb-4";
 
-  const titleVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: (i) => ({
+  const roleOptions = [
+    { value: '', label: 'Sélectionnez votre rôle' },
+    { value: 'player', label: 'Joueur' },
+    { value: 'organizer', label: 'Organisateur' },
+  ];
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      x: 100,
+    },
+    visible: {
       opacity: 1,
-      y: 0,
+      x: 0, // Revient à sa position normale
       transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 100,
         duration: 0.6,
-        ease: "easeOut",
-        delay: i * 0.2, // Delay each element by 0.2s
       },
-    }),
+    },
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="flex justify-center items-center">
-        <motion.img
-          className="w-1/2 mb-2"
-          src="/src/assets/freindly.png"
-          alt="Teddy Bear"
-          initial={{ x: 100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        />
-      </div>
-      <div className="flex items-center justify-center w-full">
-        <div className="p-3 bg-top-gray-brown-light rounded-lg shadow-lg">
-          <motion.h1
-            className="text-4xl mb-8 text-center text-gray-900"
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-            custom={0}
-          >
+    <div className="min-h-screen flex items-center justify-center w-full relative">
+      {/* Image de l'oursson en arrière-plan */}
+      <motion.img
+        className="absolute top-4 right-4 w-20 h-20 z-0"
+        src="/assets/teddy-bear.png"
+        alt="Teddy Bear"
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}
+      />
+      
+      <motion.div
+        className="w-full max-w-md mx-5 z-10"
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+        transition={{ delay: 1.2 }}
+      >
+        <Card borderColor="rose-pastel">
+          <Title level={1} animationDelay={0}>
             Inscrivez-vous
-          </motion.h1>
-
+          </Title>
           <form onSubmit={handleSubmit(onSubmit)}>
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={titleVariants}
-              custom={1}
+              className={fieldContainerClasses}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
             >
-              <input
-                type="text"
-                placeholder="Nom d&apos;utilisateur"
-                {...register("username")}
-                className={inputClasses}
-              />
+              <div className={inputContainerClasses}>
+                <User className="absolute left-3 text-gray-400 h-full w-5 justify-self-center-safe"/>
+                <input
+                  type="text"
+                  placeholder="Nom d&apos;utilisateur"
+                  {...register("username")}
+                  className={inputClasses}
+                />
+              </div>
               {errors.username && (
-                <p className="text-red-500 text-sm">
-                  {errors.username.message}
-                </p>
+                <p className="text-red-500 text-sm">{errors.username.message}</p>
               )}
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={titleVariants}
-              custom={2}
+              className={fieldContainerClasses}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
             >
-              <input
-                type="email"
-                placeholder="Email"
-                {...register("email")}
-                className={inputClasses}
-              />
+              <div className={inputContainerClasses}>
+                <Mail className="absolute left-3 text-gray-400 h-full w-5 justify-self-center-safe" />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  {...register("email")}
+                  className={inputClasses}
+                />
+              </div>
               {errors.email && (
                 <p className="text-red-500 text-sm">{errors.email.message}</p>
               )}
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={titleVariants}
-              custom={3}
+              className={fieldContainerClasses}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
             >
-              <select
-                {...register("role")}
-                className={inputClasses}
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Sélectionnez votre rôle
-                </option>
-                <option value="player">Joueur</option>
-                <option value="organizer">Organisateur</option>
-              </select>
+              <Select
+                options={roleOptions}
+                value={selectedRole}
+                onChange={(value) => {
+                  setSelectedRole(value);
+                  // Mettre à jour le formulaire react-hook-form
+                  const event = { target: { name: 'role', value } };
+                  register('role').onChange(event);
+                }}
+                placeholder="Sélectionnez votre rôle"
+              />
               {errors.role && (
                 <p className="text-red-500 text-sm">{errors.role.message}</p>
               )}
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={titleVariants}
-              custom={4}
+              className={fieldContainerClasses}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
             >
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Mot de passe"
-                {...register("password")}
-                className={inputClasses}
-              />
+              <div className={inputContainerClasses}>
+                <Lock className="absolute left-3 text-gray-400 h-full w-5" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Mot de passe"
+                  {...register("password")}
+                  className={inputClasses}
+                />
+              </div>
               {errors.password && (
                 <p className="text-red-500 text-sm">
                   {errors.password.message}
@@ -178,17 +202,20 @@ function Register() {
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={titleVariants}
-              custom={5}
+              className={fieldContainerClasses}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 1.0 }}
             >
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Confirmez le mot de passe"
-                {...register("confirmPassword")}
-                className={inputClasses}
-              />
+              <div className={inputContainerClasses}>
+                <Lock className="absolute left-3 text-gray-400 h-full w-5" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Confirmez le mot de passe"
+                  {...register("confirmPassword")}
+                  className={inputClasses}
+                />
+              </div>
               {errors.confirmPassword && (
                 <p className="text-red-500 text-sm">
                   {errors.confirmPassword.message}
@@ -197,16 +224,16 @@ function Register() {
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={titleVariants}
-              custom={6}
+              className={checkboxContainerClasses}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 1.2 }}
             >
-              <label className="flex items-center mb-4">
+              <label className="flex items-center mb-2">
                 <input
                   type="checkbox"
                   checked={showPassword}
-                  onChange={() => setShowPassword(!showPassword)} // Bascule l'état
+                  onChange={() => setShowPassword(!showPassword)}
                   className="mr-2"
                 />
                 Afficher le mot de passe
@@ -214,29 +241,52 @@ function Register() {
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={titleVariants}
-              custom={7}
+              className="mb-4"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
             >
-              <button type="submit" className={buttonClasses}>
+              <Button type="submit" fullWidth={true}>
                 S&apos;inscrire
-              </button>
+              </Button>
             </motion.div>
           </form>
-
-          <p className="mt-8 text-center text-gray-600">
-            Vous avez déjà un compte ?{" "}
-            <a
-              href="/"
-              className="text-gradient-rose-bleu text-gradient-rose-bleu-hover font-semibold transition-all duration-300"
-            >
-              Se connecter
-            </a>
-          </p>
-        </div>
-        <ToastContainer />
-      </div>
+          <div className="mt-5">
+            <p className="text-center text-gray-600 mb-4">
+              Ou inscrivez-vous avec
+            </p>
+            <div className="flex justify-center space-x-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-2 bg-gray-200 rounded-full hover:bg-blue-100 transition-colors duration-300"
+              >
+                <FaApple className="text-gray-800 text-xl" />
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-2 bg-gray-200 rounded-full hover:bg-blue-100 transition-colors duration-300"
+              >
+                <FaGoogle className="text-gray-800 text-xl" />
+              </motion.button>
+            </div>
+          </div>
+          <div className="mt-6 text-center text-gris-neutre">
+            Vous avez déjà un compte ?
+            <p>
+              👉{" "}
+              <a
+                href="/"
+                className="text-gradient-rose-bleu text-gradient-rose-bleu-hover font-semibold transition-all duration-300"
+              >
+                Se connecter
+              </a>
+            </p>
+          </div>
+        </Card>
+      </motion.div>
+      <ToastContainer />
     </div>
   );
 }
