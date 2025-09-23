@@ -34,9 +34,4 @@ Card.propTypes = {
   borderColor: PropTypes.oneOf(['rose-pastel', 'bleu-pastel']),
 };
 
-Card.defaultProps = {
-  className: "",
-  borderColor: "rose-pastel",
-};
-
 export default Card;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Modal from '../ui/Modal';
 import Card from '../ui/Card';

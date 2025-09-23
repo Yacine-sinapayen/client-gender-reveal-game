@@ -42,10 +42,4 @@ Button.propTypes = {
   fullWidth: PropTypes.bool,
 };
 
-Button.defaultProps = {
-  className: "",
-  size: "md",
-  fullWidth: false,
-};
-
 export default Button;
