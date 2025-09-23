@@ -13,7 +13,7 @@ import { store } from "./store";
 function App() {
   return (
     <Provider store={store}>
-      <div className="bg-fond-clair">
+      <div className="min-h-screen bg-fond-clair">
         <Routes>
           {/* Routes sans navbar (Login et Register) */}
           <Route path="/login" element={<Login />} />
