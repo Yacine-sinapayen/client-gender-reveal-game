@@ -17,7 +17,7 @@ const Title = ({
     6: "text-base font-semibold",
   };
 
-  const baseClasses = ['text-marron-chaud mb-8 text-center text-2xl font-normal',
+  const baseClasses = ['text-marron-chaud mb-2 text-center text-2xl font-normal',
     sizeClasses[level] || sizeClasses[1],
     className
   ].filter(Boolean).join(' ');
